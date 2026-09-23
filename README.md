@@ -1,0 +1,2 @@
+"# yggdrasil" 
+Yggdrasil is a lightweight, high-performance Java persistence framework designed to simplify storage and retrieval interactions. Named after the mythical cosmic tree that connects different worlds, Yggdrasil persists Java objects that have ordering or distance relationships using disk or memory access methods.

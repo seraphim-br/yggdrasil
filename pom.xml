@@ -1,0 +1,15 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>yggdrasil</groupId>
+    <artifactId>yggdrasil</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <properties>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+    </properties>
+    <modules>
+        <module>yggdrasil-core</module>
+        <module>yggdrasil-app/brcityrange</module>
+    </modules>
+</project>
