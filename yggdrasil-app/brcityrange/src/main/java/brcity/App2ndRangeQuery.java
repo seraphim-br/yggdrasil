@@ -16,7 +16,7 @@ public class App2ndRangeQuery {
         BufferedReader txtFile = new BufferedReader(
                 new InputStreamReader(new FileInputStream(App1stInsert.FILE_BASE)));
 
-        File f1 = new File(App1stInsert.FILE_SEQ, 4096);
+        File f1 = new File(App1stInsert.FILE_SEQ_METRIC);
         SequentialMetric<PointCity> seq = new SequentialMetric<>(f1) {};
         
         PointCity pointCity = new PointCity();

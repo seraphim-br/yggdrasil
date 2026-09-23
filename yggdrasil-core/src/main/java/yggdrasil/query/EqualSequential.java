@@ -21,49 +21,45 @@ package yggdrasil.query;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+
 import yggdrasil.block.SequentialMetricNode;
+import yggdrasil.block.SequentialNode;
 import yggdrasil.storage.Session;
-import yggdrasil.meta.Metric;
-import yggdrasil.storage.SequentialMetric;
+import yggdrasil.meta.Entity;
+import yggdrasil.storage.Sequential;
 
 /**
  *
  * @author Enzo Seraphim <seraphim@unifei.edu.br>
- * @author Carlos Ferro <carlosferro@gmail.com>
  * @author Thatyana de Faria Piola Seraphim <thatyana@unifei.edu.br>
  * @param <M>
  */
-public abstract class RangeQuerySequentialMetric
-        <M extends Metric<M>> extends AbstractStrategy<M>{
+public abstract class EqualSequential
+        <E extends Entity<E>> extends AbstractStrategy<E>{
 
-    private final M object;
-    private final double range;
-
-    public RangeQuerySequentialMetric(SequentialMetric<M> sequential, M object, double range) {
+    private final E object;
+    
+    public EqualSequential(Sequential<E> sequential, E object) {
         super(sequential);
         this.object = object;
-        this.range = range;
     }
 
     @Override
-    public Collection<M> solve() {
+    public Collection<E> solve() {
         Session se = this.getStructure().getWorkspace().openSession();
-        List<M> result = new LinkedList<>();
+        List<E> result = new LinkedList<>();
         long firstNode = this.getStructure().getRootPageId();
         if (firstNode != 0) {
             long actualPageId = firstNode;
             long firstPageId = actualPageId;
             int total;
-            double dist;
             do {
-                SequentialMetricNode<M> actualSeqNode = 
-                        new SequentialMetricNode<>(se.load(actualPageId), this.getStructure().getObjectClass());
-                total = actualSeqNode.readNumberOfKeys();
+                SequentialNode<E> actualSeqNode = 
+                        new SequentialNode<>(se.load(actualPageId), this.getStructure().getObjectClass());
+                total = actualSeqNode.readNumberOfEntitries();
                 for (int i = 0; i < total; i++) {
-                    M  build = actualSeqNode.buildKey(i);
-                    dist = object.distanceTo(build);
-                    if (dist <= range) {
-                        build.setPreservedDistance(dist);
+                    E build = actualSeqNode.buildEntity(i);
+                    if (object.isEqual(build)) {
                         result.add(build);
                     }
                 }
