@@ -8,10 +8,8 @@ import java.util.Collection;
 import java.util.StringTokenizer;
 
 import yggdrasil.query.EqualSequential;
-import yggdrasil.query.RangeQuerySequentialMetric;
 import yggdrasil.storage.File;
 import yggdrasil.storage.Sequential;
-import yggdrasil.storage.SequentialMetric;
 
 public class App4thEqual {
     public static void main(String[] args) throws NumberFormatException, IOException {
