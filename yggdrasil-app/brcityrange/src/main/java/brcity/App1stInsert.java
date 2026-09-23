@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.StringTokenizer;
 
-import yggdrasil.meta.Entity;
 import yggdrasil.storage.BTree;
 import yggdrasil.storage.File;
 import yggdrasil.storage.Sequential;

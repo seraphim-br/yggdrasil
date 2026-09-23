@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import yggdrasil.block.SequentialMetricNode;
 import yggdrasil.block.SequentialNode;
 import yggdrasil.storage.Session;
 import yggdrasil.meta.Entity;
