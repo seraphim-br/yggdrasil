@@ -20,7 +20,6 @@ package yggdrasil.storage;
 
 import yggdrasil.block.SequentialDescriptor;
 import yggdrasil.block.SequentialSortNode;
-import yggdrasil.meta.Metric;
 import yggdrasil.meta.Sort;
 import yggdrasil.meta.Uuid;
 

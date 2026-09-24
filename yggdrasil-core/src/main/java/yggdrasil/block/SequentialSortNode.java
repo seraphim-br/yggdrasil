@@ -19,7 +19,6 @@ or visit <http://www.gnu.org/licenses/>
 
 package yggdrasil.block;
 
-import yggdrasil.meta.Metric;
 import yggdrasil.meta.Sort;
 import yggdrasil.meta.Uuid;
 
