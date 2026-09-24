@@ -11,6 +11,7 @@ import yggdrasil.storage.BTree;
 import yggdrasil.storage.File;
 import yggdrasil.storage.Sequential;
 import yggdrasil.storage.SequentialMetric;
+import yggdrasil.storage.SequentialSort;
 
 
 public class App1stInsert {
@@ -20,7 +21,8 @@ public class App1stInsert {
     public static final String DIR_APP = DIR_ROOT+"/yggdrasil-app/brcityrange";
     public static final String FILE_SEQ_ENTITY = DIR_APP+"/EntityCity.seq";
     public static final String FILE_SEQ_METRIC = DIR_APP+"/PointCity.seq";
-    public static final String FILE_BTREE = DIR_APP+"/OrderCity.btree";
+    public static final String FILE_SEQ_SORT = DIR_APP+"/SortCity.seq";
+    public static final String FILE_BTREE = DIR_APP+"/SortCity.btree";
 
     public static void main(String[] args) throws NumberFormatException, IOException, URISyntaxException {
 
@@ -34,12 +36,15 @@ public class App1stInsert {
         File f2 = new File(FILE_SEQ_METRIC, 4096);
         SequentialMetric<PointCity> seqMetric = new SequentialMetric<PointCity>(f2) {};
 
-        File f3 = new File(FILE_BTREE, 4096);
-        BTree<OrderCity> btree = new BTree<OrderCity>(f3) {};
+        File f3 = new File(FILE_SEQ_SORT, 4096);
+        SequentialSort<SortCity> seqSort = new SequentialSort<SortCity>(f3) {};
+
+        File f4 = new File(FILE_BTREE, 4096);
+        BTree<SortCity> btree = new BTree<SortCity>(f4) {};
 
                 
         PointCity pointCity = new PointCity();
-        OrderCity orderCity = new OrderCity();
+        SortCity sortCity = new SortCity();
         EntityCity entityCity = new EntityCity();
         StringTokenizer tok;
         int i=0;
@@ -57,9 +62,11 @@ public class App1stInsert {
             pointCity.setLatitude(entityCity.getLatitude());
             pointCity.setLongitude(entityCity.getLongitude());
             seqMetric.add(pointCity);
+            //seq sort
+            sortCity.setName(entityCity.getName());
+            seqSort.add(sortCity);
             //btree
-            orderCity.setName(entityCity.getName());
-            btree.add(orderCity);
+            btree.add(sortCity);
             i++;
         }
         txtFile.close();

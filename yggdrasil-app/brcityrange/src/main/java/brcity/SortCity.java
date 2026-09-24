@@ -6,12 +6,12 @@ import yggdrasil.block.PushPage;
 import yggdrasil.meta.Sort;
 import yggdrasil.meta.Uuid;
 
-public class OrderCity extends EntityCity implements Sort<OrderCity>, Comparable<OrderCity> {
+public class SortCity extends EntityCity implements Sort<SortCity>, Comparable<SortCity> {
  
     public static Uuid classId = Uuid.fromString("2f10da29-5d5f-4ff4-b9ab-7f1267924caf");
 
     @Override
-    public boolean hasSameKey(OrderCity obj) {
+    public boolean hasSameKey(SortCity obj) {
         return compareTo(obj)==0;
     }
 
@@ -34,7 +34,7 @@ public class OrderCity extends EntityCity implements Sort<OrderCity>, Comparable
     }
 
     @Override 
-    public int compareTo(OrderCity o){
+    public int compareTo(SortCity o){
         return this.getName().compareTo(o.getName());
     }
 }
