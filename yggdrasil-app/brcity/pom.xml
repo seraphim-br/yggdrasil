@@ -11,8 +11,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>brcityrange</groupId>
-    <artifactId>brcityrange</artifactId>
+    <groupId>brcity</groupId>
+    <artifactId>brcity</artifactId>
     <version>1.0.0</version>
 
     <properties>

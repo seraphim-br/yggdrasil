@@ -10,6 +10,6 @@
     </properties>
     <modules>
         <module>yggdrasil-core</module>
-        <module>yggdrasil-app/brcityrange</module>
+        <module>yggdrasil-app/brcity</module>
     </modules>
 </project>
