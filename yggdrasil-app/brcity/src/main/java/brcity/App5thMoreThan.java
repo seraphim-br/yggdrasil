@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import yggdrasil.query.MoreThanSequentialOrder;
+import yggdrasil.query.MoreThanSequentialSort;
 import yggdrasil.storage.File;
 import yggdrasil.storage.SequentialSort;
 
@@ -30,8 +30,8 @@ public class App5thMoreThan {
             sortCity.setName(tok.nextToken());
             sortCity.setLatitude(Double.parseDouble(tok.nextToken()));
             sortCity.setLongitude(Double.parseDouble(tok.nextToken()));
-            MoreThanSequentialOrder<SortCity> more = 
-                    new MoreThanSequentialOrder<>(seq, sortCity) {};
+            MoreThanSequentialSort<SortCity> more = 
+                    new MoreThanSequentialSort<>(seq, sortCity) {};
             Collection<SortCity> res = more.solve();
             for (SortCity c : res) {
                 if (c.compareTo(sortCity) <= 0) {

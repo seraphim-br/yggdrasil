@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import yggdrasil.query.BetweenAndSequentialOrder;
+import yggdrasil.query.BetweenAndSequentialSort;
 import yggdrasil.storage.File;
 import yggdrasil.storage.SequentialSort;
 
@@ -41,8 +41,8 @@ public class App7thBetweenAnd {
             SortCity lower = (prevCity.compareTo(sortCity) <= 0) ? prevCity : sortCity;
             SortCity upper = (prevCity.compareTo(sortCity) <= 0) ? sortCity : prevCity;
 
-            BetweenAndSequentialOrder<SortCity> between = 
-                    new BetweenAndSequentialOrder<>(seq, lower, upper) {};
+            BetweenAndSequentialSort<SortCity> between = 
+                    new BetweenAndSequentialSort<>(seq, lower, upper) {};
             
             Collection<SortCity> res = between.solve();
             

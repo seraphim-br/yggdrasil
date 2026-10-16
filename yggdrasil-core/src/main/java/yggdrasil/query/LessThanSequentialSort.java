@@ -30,23 +30,23 @@ import yggdrasil.storage.Session;
  *
  * @author Enzo Seraphim <seraphim@unifei.edu.br>
  * @author Thatyana de Faria Piola Seraphim <thatyana@unifei.edu.br>
+ * @author Gabriel Lazarini de Lima Ribeiro <d2024006783@unifei.edu.br>
  * @param <M>
  */
-public class BetweenAndSequentialOrder
+public class LessThanSequentialSort
         <M extends Sort<M> & Comparable<M>> extends AbstractStrategy<M> {
 
-    private final M lower, upper;
+    private final M object;
 
-    public BetweenAndSequentialOrder(SequentialSort<M> sequential, M lower,M upper) {
+    public LessThanSequentialSort(SequentialSort<M> sequential, M object) {
         super(sequential);
-        this.lower =  (lower.compareTo(upper) <= 0) ? lower : upper;
-        this.upper = (upper.compareTo(lower) >= 0) ? upper : lower;
+        this.object = object;
     }
 
     @Override
     public Collection<M> solve() {
         List<M> result = new LinkedList<>();
-        if (lower == null || upper == null) {
+        if (object == null) {
             return result;
         }
         long firstNode = this.getStructure().getRootPageId();
@@ -65,7 +65,7 @@ public class BetweenAndSequentialOrder
                 for (int i = 0; i < total; i++) {
                     M build = actualSeqNode.buildKey(i);
                     
-                    if (build != null && build.compareTo(upper) <= 0 && build.compareTo(lower) >= 0) {
+                    if (build != null && build.compareTo(object) < 0) {
                         result.add(build);
                     }
 

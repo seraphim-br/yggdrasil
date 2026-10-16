@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import yggdrasil.query.LessThanSequentialOrder;
+import yggdrasil.query.LessThanSequentialSort;
 import yggdrasil.storage.File;
 import yggdrasil.storage.SequentialSort;
 
@@ -33,8 +33,8 @@ public class App6thLessThan {
             sortCity.setLatitude(Double.parseDouble(tok.nextToken()));
             sortCity.setLongitude(Double.parseDouble(tok.nextToken()));
             
-            LessThanSequentialOrder<SortCity> lessThan = 
-                    new LessThanSequentialOrder<>(seq, sortCity);
+            LessThanSequentialSort<SortCity> lessThan = 
+                    new LessThanSequentialSort<>(seq, sortCity);
             
             Collection<SortCity> res = lessThan.solve();
             

@@ -21,7 +21,6 @@ package yggdrasil.query;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
 import yggdrasil.block.SequentialSortNode;
 import yggdrasil.meta.Sort;
 import yggdrasil.storage.SequentialSort;
@@ -31,25 +30,31 @@ import yggdrasil.storage.Session;
  *
  * @author Enzo Seraphim <seraphim@unifei.edu.br>
  * @author Thatyana de Faria Piola Seraphim <thatyana@unifei.edu.br>
- * @author Paulo Vinícius Garcia Barbosa Rodrigues <d2024004081@unifei.edu.br>
  * @param <M>
  */
-public abstract class MoreThanSequentialOrder
+public class BetweenAndSequentialSort
         <M extends Sort<M> & Comparable<M>> extends AbstractStrategy<M> {
 
-    private final M object;
+    private final M lower, upper;
 
-    public MoreThanSequentialOrder(SequentialSort<M> sequential, M object) {
+    public BetweenAndSequentialSort(SequentialSort<M> sequential, M lower,M upper) {
         super(sequential);
-        this.object = object;
+        this.lower =  (lower.compareTo(upper) <= 0) ? lower : upper;
+        this.upper = (upper.compareTo(lower) >= 0) ? upper : lower;
     }
 
     @Override
     public Collection<M> solve() {
-        Session se = this.getStructure().getWorkspace().openSession();
         List<M> result = new LinkedList<>();
+        if (lower == null || upper == null) {
+            return result;
+        }
         long firstNode = this.getStructure().getRootPageId();
-        if (firstNode != 0) {
+        if (firstNode == 0) {
+            return result;
+        }
+        Session se = this.getStructure().getWorkspace().openSession();
+        try {
             long actualPageId = firstNode;
             long firstPageId = actualPageId;
             int total;
@@ -59,17 +64,18 @@ public abstract class MoreThanSequentialOrder
                 total = actualSeqNode.readNumberOfKeys();
                 for (int i = 0; i < total; i++) {
                     M build = actualSeqNode.buildKey(i);
-                    if (build != null && build.compareTo(object) > 0) {
+                    
+                    if (build != null && build.compareTo(upper) <= 0 && build.compareTo(lower) >= 0) {
                         result.add(build);
                     }
+
                 }
                 actualPageId = actualSeqNode.readNextPageId();
-            } while (actualPageId != firstPageId);
-
+            } while (actualPageId != 0 && actualPageId != firstPageId);
+        } finally {
+            se.close();
         }
-        se.close();
 
         return result;
     }
-
 }
