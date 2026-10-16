@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 
 import yggdrasil.storage.BTree;
 import yggdrasil.storage.File;
+import yggdrasil.storage.MTree;
 import yggdrasil.storage.Sequential;
 import yggdrasil.storage.SequentialMetric;
 import yggdrasil.storage.SequentialSort;
@@ -23,6 +24,7 @@ public class App1stInsert {
     public static final String FILE_SEQ_METRIC = DIR_APP+"/PointCity.seq";
     public static final String FILE_SEQ_SORT = DIR_APP+"/SortCity.seq";
     public static final String FILE_BTREE = DIR_APP+"/SortCity.btree";
+    public static final String FILE_MTREE = DIR_APP+"/PointCity.mtree";
 
     public static void main(String[] args) throws NumberFormatException, IOException, URISyntaxException {
 
@@ -42,6 +44,8 @@ public class App1stInsert {
         File f4 = new File(FILE_BTREE, 4096);
         BTree<SortCity> btree = new BTree<SortCity>(f4) {};
 
+        File f5 = new File(FILE_MTREE, 4096);
+        MTree<PointCity> mtree = new MTree<PointCity>(f5) {};
                 
         PointCity pointCity = new PointCity();
         SortCity sortCity = new SortCity();
@@ -62,6 +66,7 @@ public class App1stInsert {
             pointCity.setLatitude(entityCity.getLatitude());
             pointCity.setLongitude(entityCity.getLongitude());
             seqMetric.add(pointCity);
+            mtree.add(pointCity);
             //seq sort
             sortCity.setName(entityCity.getName());
             seqSort.add(sortCity);

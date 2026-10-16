@@ -21,17 +21,14 @@ package yggdrasil.query;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
-import yggdrasil.block.BTreeIndex;
-import yggdrasil.block.BTreeLeaf;
-import yggdrasil.block.BTreeNode;
+import yggdrasil.block.MTreeIndex;
+import yggdrasil.block.MTreeLeaf;
 import yggdrasil.block.Node;
-import yggdrasil.block.SequentialNode;
 import yggdrasil.storage.Session;
-import yggdrasil.meta.Entity;
-import yggdrasil.meta.Sort;
-import yggdrasil.storage.BTree;
-import yggdrasil.storage.Sequential;
+import yggdrasil.meta.Metric;
+import yggdrasil.storage.MTree;
 
 /**
  *
@@ -39,38 +36,72 @@ import yggdrasil.storage.Sequential;
  * @author Thatyana de Faria Piola Seraphim <thatyana@unifei.edu.br>
  * @param <M>
  */
-public abstract class EqualBTree
-        <S extends Sort<S> & Comparable<S>> extends AbstractStrategy<S>{
+public abstract class RangeQueryMTree
+        <M extends Metric<M>> extends AbstractStrategy<M>{
 
-    private final S object;
+    private final M object;
+    private final double range;
     
-    public EqualBTree(BTree<S> btree, S object) {
-        super(btree);
+    public RangeQueryMTree(MTree<M> mtree, M object, double range) {
+        super(mtree);
         this.object = object;
+        this.range = range;
+    }
+
+    private class Qualify{
+        private final long pageId;
+        private final double distanceParentToPointQuery;
+        public Qualify(long pageId, double distanceParentToPointQuery) {
+            this.pageId = pageId;
+            this.distanceParentToPointQuery = distanceParentToPointQuery;
+        }
+        public long getPageId() {
+            return pageId;
+        }
+        public double getDistanceParentToPointQuery() {
+            return distanceParentToPointQuery;
+        }        
     }
 
     @Override
-    public Collection<S> solve() {
+    public Collection<M> solve() {
         Session se = this.getStructure().getWorkspace().openSession();
-        List<S> result = new LinkedList<>();
+        List<M> result = new LinkedList<>();
         long rootNode = this.getStructure().getRootPageId();
+        Stack<Qualify> qualified = new Stack<>();
+        qualified.push(new Qualify(this.getStructure().getRootPageId(), Double.MAX_VALUE));
         if (rootNode != 0) {
-            Node node = se.load(rootNode);
-            BTreeIndex<S> index;
-            BTreeLeaf<S> leaf;
-            int idx, total;
-            while(node.readNodeType()==BTreeIndex.nodeType){
-                index = new BTreeIndex<S>(node, this.getStructure().getObjectClass());
-                idx = index.indexOfQualify(object);
-                node = se.load(index.readSubPageId(idx));
-            }
-            leaf = new BTreeLeaf<>(node, this.getStructure().getObjectClass());
-            total = leaf.readNumberOfKeys();
-            // TODO: MUDAR BUSCA BINÁRIA
-            for (int i = 0; i < total; i++) {
-                S build = leaf.buildKey(i);
-                if (object.compareTo(build)==0) {
-                    result.add(build);
+            
+            MTreeIndex<M> index;
+            MTreeLeaf<M> leaf;
+            int total;
+            double dist;
+            while(!qualified.isEmpty()){
+                Qualify qualify = qualified.pop();
+
+                Node node = se.load(qualify.getPageId());    
+                if(node.readNodeType()==MTreeIndex.nodeType){//index
+                    index = new MTreeIndex<>(node, this.getStructure().getObjectClass());
+                    total = index.readNumberOfKeys();
+                    for (int i = 0; i < total; i++) {
+                        if(qualify.getDistanceParentToPointQuery() - range <=
+                                index.readDistanceToParent(i) + index.readCoveringRadius(i)){
+                            M build = index.buildKey(i);
+                            dist = object.distanceTo(build);
+                            if (dist<=range+index.readCoveringRadius(i)) {
+                                qualified.push(new Qualify(index.readSubPageId(i), dist));
+                            }
+                        }
+                    }
+                }else{//leaf
+                    leaf = new MTreeLeaf<>(node, this.getStructure().getObjectClass());
+                    total = leaf.readNumberOfKeys();
+                    for (int i = 0; i < total; i++) {
+                        M build = leaf.buildKey(i);
+                        if (object.distanceTo(build)<=range) {
+                            result.add(build);
+                        }
+                    }
                 }
             }
         }
