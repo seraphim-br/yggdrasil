@@ -8,7 +8,7 @@ import yggdrasil.meta.Uuid;
 
 public class EntityCity extends City implements Entity<EntityCity>{
     protected Uuid uuid = Uuid.generator();
-    public static Uuid classId = Uuid.fromString("26126211-C189-161E-9885-3580B7768D57");
+    public static Uuid classId = Uuid.fromString("85086132-539e-481e-9f30-27a0554030e1");
 
     @Override
     public boolean isEqual(EntityCity obj) {

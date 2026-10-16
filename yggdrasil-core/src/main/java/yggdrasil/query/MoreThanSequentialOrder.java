@@ -34,12 +34,12 @@ import yggdrasil.storage.Session;
  * @author Paulo Vinícius Garcia Barbosa Rodrigues <d2024004081@unifei.edu.br>
  * @param <M>
  */
-public abstract class MoreSequential
+public abstract class MoreThanSequentialOrder
         <M extends Sort<M> & Comparable<M>> extends AbstractStrategy<M> {
 
     private final M object;
 
-    public MoreSequential(SequentialSort<M> sequential, M object) {
+    public MoreThanSequentialOrder(SequentialSort<M> sequential, M object) {
         super(sequential);
         this.object = object;
     }

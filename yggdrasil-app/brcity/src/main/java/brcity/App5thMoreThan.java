@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import yggdrasil.query.LessThanSequential;
+import yggdrasil.query.MoreThanSequentialOrder;
 import yggdrasil.storage.File;
 import yggdrasil.storage.SequentialSort;
 
-public class AppLessThan {
+public class App5thMoreThan {
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader txtFile = new BufferedReader(
                 new InputStreamReader(new FileInputStream(App1stInsert.FILE_BASE)));
@@ -22,24 +22,19 @@ public class AppLessThan {
         SortCity sortCity = new SortCity();
         StringTokenizer tok;
         int i = 0;
-        
         while (txtFile.ready()){
             if (i % 1000 == 0){
                 System.out.println(i);
             }
-            
             tok = new StringTokenizer(txtFile.readLine(), "\t");
             sortCity.setName(tok.nextToken());
             sortCity.setLatitude(Double.parseDouble(tok.nextToken()));
             sortCity.setLongitude(Double.parseDouble(tok.nextToken()));
-            
-            LessThanSequential<SortCity> lessThan = 
-                    new LessThanSequential<>(seq, sortCity);
-            
-            Collection<SortCity> res = lessThan.solve();
-            
+            MoreThanSequentialOrder<SortCity> more = 
+                    new MoreThanSequentialOrder<>(seq, sortCity) {};
+            Collection<SortCity> res = more.solve();
             for (SortCity c : res) {
-                if (c.compareTo(sortCity) >= 0) {
+                if (c.compareTo(sortCity) <= 0) {
                     System.out.println("error:" + i);
                     break;
                 }

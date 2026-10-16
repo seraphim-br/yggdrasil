@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import yggdrasil.query.BetweenSequentialOrder;
+import yggdrasil.query.BetweenAndSequentialOrder;
 import yggdrasil.storage.File;
 import yggdrasil.storage.SequentialSort;
 
-public class App8thBetween {
+public class App7thBetweenAnd {
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader txtFile = new BufferedReader(
                 new InputStreamReader(new FileInputStream(App1stInsert.FILE_BASE)));
@@ -41,8 +41,8 @@ public class App8thBetween {
             SortCity lower = (prevCity.compareTo(sortCity) <= 0) ? prevCity : sortCity;
             SortCity upper = (prevCity.compareTo(sortCity) <= 0) ? sortCity : prevCity;
 
-            BetweenSequentialOrder<SortCity> between = 
-                    new BetweenSequentialOrder<>(seq, lower, upper) {};
+            BetweenAndSequentialOrder<SortCity> between = 
+                    new BetweenAndSequentialOrder<>(seq, lower, upper) {};
             
             Collection<SortCity> res = between.solve();
             

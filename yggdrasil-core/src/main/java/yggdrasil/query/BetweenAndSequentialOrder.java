@@ -32,15 +32,15 @@ import yggdrasil.storage.Session;
  * @author Thatyana de Faria Piola Seraphim <thatyana@unifei.edu.br>
  * @param <M>
  */
-public class BetweenSequentialOrder
+public class BetweenAndSequentialOrder
         <M extends Sort<M> & Comparable<M>> extends AbstractStrategy<M> {
 
     private final M lower, upper;
 
-    public BetweenSequentialOrder(SequentialSort<M> sequential, M lower,M upper) {
+    public BetweenAndSequentialOrder(SequentialSort<M> sequential, M lower,M upper) {
         super(sequential);
-        this.lower = lower;
-        this.upper = upper;
+        this.lower =  (lower.compareTo(upper) <= 0) ? lower : upper;
+        this.upper = (upper.compareTo(lower) >= 0) ? upper : lower;
     }
 
     @Override

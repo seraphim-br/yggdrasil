@@ -11,7 +11,7 @@ import yggdrasil.query.PointQuerySequentialMetric;
 import yggdrasil.storage.File;
 import yggdrasil.storage.SequentialMetric;
 
-public class App6thPointQuery {
+public class App8thPointQuery {
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader txtFile = new BufferedReader(
                 new InputStreamReader(new FileInputStream(App1stInsert.FILE_BASE)));
