@@ -7,11 +7,9 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import yggdrasil.query.PointQuerySequentialMetric;
 import yggdrasil.query.RangeQueryMTree;
 import yggdrasil.storage.File;
 import yggdrasil.storage.MTree;
-import yggdrasil.storage.SequentialMetric;
 
 public class App10thRangeQuery {
     public static void main(String[] args) throws NumberFormatException, IOException {
