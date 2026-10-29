@@ -24,10 +24,14 @@ import java.util.List;
 
 import yggdrasil.block.BTreeIndex;
 import yggdrasil.block.BTreeLeaf;
+import yggdrasil.block.BTreeNode;
 import yggdrasil.block.Node;
+import yggdrasil.block.SequentialNode;
 import yggdrasil.storage.Session;
+import yggdrasil.meta.Entity;
 import yggdrasil.meta.Sort;
 import yggdrasil.storage.BTree;
+import yggdrasil.storage.Sequential;
 
 /**
  *
@@ -62,37 +66,11 @@ public abstract class EqualBTree
             }
             leaf = new BTreeLeaf<>(node, this.getStructure().getObjectClass());
             total = leaf.readNumberOfKeys();
-            
-            int low = 0;
-            int high = total - 1;
-            int firstMatch = -1;
-
-            while(low <= high) {
-                int mid = (low + high) / 2;
-                S build = leaf.buildKey(mid);
-                int cmp = object.compareTo(build);
-
-                if(cmp == 0) {
-                    firstMatch = mid;
-                    high = mid - 1;
-                } 
-                else if(cmp < 0) {
-                    high = mid - 1;
-                } 
-                else {
-                    low = mid + 1;
-                }
-            }
-
-            if(firstMatch != -1) {
-                for(int i = firstMatch; i < total; i++) {
-                    S build = leaf.buildKey(i);
-                    if(object.compareTo(build) == 0) {
-                        result.add(build);
-                    } 
-                    else {
-                        break;
-                    }
+            // TODO: MUDAR BUSCA BINÁRIA
+            for (int i = 0; i < total; i++) {
+                S build = leaf.buildKey(i);
+                if (object.compareTo(build)==0) {
+                    result.add(build);
                 }
             }
         }
