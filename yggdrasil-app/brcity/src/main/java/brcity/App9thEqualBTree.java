@@ -8,10 +8,8 @@ import java.util.Collection;
 import java.util.StringTokenizer;
 
 import yggdrasil.query.EqualBTree;
-import yggdrasil.query.EqualSequential;
 import yggdrasil.storage.BTree;
 import yggdrasil.storage.File;
-import yggdrasil.storage.Sequential;
 
 public class App9thEqualBTree {
     public static void main(String[] args) throws NumberFormatException, IOException {

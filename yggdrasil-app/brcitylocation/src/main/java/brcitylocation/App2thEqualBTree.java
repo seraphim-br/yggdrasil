@@ -10,9 +10,7 @@ import java.io.OutputStreamWriter;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import yggdrasil.query.EqualBTree;
 import yggdrasil.query.EqualBTreeLocation;
-import yggdrasil.query.EqualSequential;
 import yggdrasil.storage.BTree;
 import yggdrasil.storage.File;
 
