@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
+import yggdrasil.query.EqualBTree;
 import yggdrasil.query.EqualSequential;
+import yggdrasil.storage.BTree;
 import yggdrasil.storage.File;
 import yggdrasil.storage.Sequential;
 
@@ -16,10 +18,10 @@ public class App9thEqualBTree {
         BufferedReader txtFile = new BufferedReader(
                 new InputStreamReader(new FileInputStream(App1stInsert.FILE_BASE)));
 
-        File f1 = new File(App1stInsert.FILE_SEQ_ENTITY);
-        Sequential<EntityCity> seq = new Sequential<>(f1) {};
+        File f1 = new File(App1stInsert.FILE_BTREE);
+        BTree<SortCity> seq = new BTree<>(f1) {};
         
-        EntityCity entityCity = new EntityCity();
+        SortCity sortCity = new SortCity();
         StringTokenizer tok;
         int i=0;
         while (txtFile.ready()){
@@ -27,13 +29,13 @@ public class App9thEqualBTree {
                 System.out.println(i);
             }
             tok = new StringTokenizer(txtFile.readLine(), "\t");
-            entityCity.setName(tok.nextToken());
-            entityCity.setLatitude(Double.parseDouble(tok.nextToken()));
-            entityCity.setLongitude(Double.parseDouble(tok.nextToken()));
-            EqualSequential<EntityCity> equal = 
-                    new EqualSequential<>(seq, entityCity) {};
-            Collection<EntityCity> res = equal.solve();
-            if (!res.iterator().next().isEqual(entityCity)){
+            sortCity.setName(tok.nextToken());
+            sortCity.setLatitude(Double.parseDouble(tok.nextToken()));
+            sortCity.setLongitude(Double.parseDouble(tok.nextToken()));
+            EqualBTree<SortCity> equal = 
+                    new EqualBTree<>(seq, sortCity) {};
+            Collection<SortCity> res = equal.solve();
+            if (res.iterator().next().compareTo(sortCity)!=0){
                 System.out.println("error:"+i);
             }
             i++;
