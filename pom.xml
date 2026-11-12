@@ -12,5 +12,6 @@
         <module>yggdrasil-core</module>
         <module>yggdrasil-app/brcity</module>
         <module>yggdrasil-app/brcitylocation</module>
+        <module>yggdrasil-app/iris</module>
     </modules>
 </project>

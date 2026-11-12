@@ -16,7 +16,7 @@ import yggdrasil.storage.MTree;
 
 public class App16thPointQueryLocation {
 
-    public static final String FILE_TREINO_POINT_MTREE = App1stInsert.DIR_APP+"/treino_point_mtree.txt";
+    public static final String FILE_TREINO_POINT_MTREE = App1stInsert.DIR_DATA+"/treino_point_mtree.txt";
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader txtFile = new BufferedReader(
                 new InputStreamReader(new FileInputStream(App1stInsert.FILE_BASE)));

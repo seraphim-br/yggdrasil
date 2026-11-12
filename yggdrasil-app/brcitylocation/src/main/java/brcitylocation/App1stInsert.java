@@ -20,6 +20,7 @@ public class App1stInsert {
     public static final String DIR_ROOT = System.getProperty("user.dir");
     public static final String FILE_BASE = DIR_ROOT+"/yggdrasil-data/brasil/brasil.txt";
     public static final String DIR_APP = DIR_ROOT+"/yggdrasil-app/brcitylocation";
+    public static final String DIR_DATA = DIR_ROOT+"/yggdrasil-data/brasil";
     public static final String FILE_SEQ_ENTITY = DIR_APP+"/EntityCity.seq";
     public static final String FILE_SEQ_METRIC = DIR_APP+"/PointCity.seq";
     public static final String FILE_SEQ_SORT = DIR_APP+"/SortCity.seq";

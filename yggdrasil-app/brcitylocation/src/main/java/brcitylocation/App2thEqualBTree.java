@@ -16,7 +16,7 @@ import yggdrasil.storage.File;
 
 public class App2thEqualBTree {
 
-    public static final String FILE_TREINO_EQUAL_BTREE = App1stInsert.DIR_APP+"/treino_equal_btree.txt";
+    public static final String FILE_TREINO_EQUAL_BTREE = App1stInsert.DIR_DATA+"/treino_equal_btree.txt";
 
     public static void main(String[] args) throws NumberFormatException, IOException {
 
