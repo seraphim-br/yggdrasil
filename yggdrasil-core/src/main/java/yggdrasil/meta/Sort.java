@@ -41,7 +41,7 @@ package yggdrasil.meta;
  * @author Thatyana de Faria Piola Seraphim <thatyana@unifei.edu.br>
  * @author Caetano Traina Júnior <caetano@icmc.usp.br>
  */
-public interface Sort<K extends Sort<K> & Comparable<K>> extends Key<K>
+public interface Sort<K extends Sort<K>> extends Key<K>, Comparable<K>
 {
     
 }

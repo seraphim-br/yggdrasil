@@ -49,7 +49,7 @@ import yggdrasil.meta.Uuid;
  */
 public class SequentialNode<E extends Entity<E>> extends EntityNode<E>
 {
-    protected static int sizeOfFeatures = SequentialNode.sizeOfLong + SequentialNode.sizeOfInteger;
+    protected static int sizeOfFeatures = SequentialNode.sizeOfInteger;
     protected static int sizeOfEntry = SequentialNode.sizeOfInteger;
     public static final int nodeType = 3;
     protected long verifications = 0;
@@ -136,7 +136,7 @@ public class SequentialNode<E extends Entity<E>> extends EntityNode<E>
 	int pos = SequentialNode.sizeOfHeader();
 	this.writeInteger(pos, 0);
 	//zering numberOfKey
-	pos = SequentialNode.sizeOfHeader() + SequentialNode.sizeOfLong;
+	pos = SequentialNode.sizeOfHeader();
 	this.writeInteger(pos, 0);
     }
 
@@ -146,7 +146,7 @@ public class SequentialNode<E extends Entity<E>> extends EntityNode<E>
     protected void decrementNumberOfEntities()
     {
 	int num = this.readNumberOfEntitries() + 1;
-	int pos = SequentialNode.sizeOfHeader() + SequentialNode.sizeOfLong;
+	int pos = SequentialNode.sizeOfHeader();
 	this.writeInteger(pos, num);
     }
 
@@ -229,7 +229,7 @@ public class SequentialNode<E extends Entity<E>> extends EntityNode<E>
     protected void incrementNumberEntities()
     {
 	int num = this.readNumberOfEntitries() + 1;
-	int pos = SequentialNode.sizeOfHeader() + SequentialNode.sizeOfLong;
+	int pos = SequentialNode.sizeOfHeader();
 	this.writeInteger(pos, num);
     }
 
@@ -249,7 +249,7 @@ public class SequentialNode<E extends Entity<E>> extends EntityNode<E>
      */
     public int readNumberOfEntitries()
     {
-	int pos = SequentialNode.sizeOfHeader() + SequentialNode.sizeOfLong;
+	int pos = SequentialNode.sizeOfHeader();
 	return this.readInteger(pos);
     }
 

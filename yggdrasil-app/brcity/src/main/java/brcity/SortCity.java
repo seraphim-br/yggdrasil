@@ -6,7 +6,7 @@ import yggdrasil.block.PushPage;
 import yggdrasil.meta.Sort;
 import yggdrasil.meta.Uuid;
 
-public class SortCity extends EntityCity implements Sort<SortCity>, Comparable<SortCity> {
+public class SortCity extends EntityCity implements Sort<SortCity> {
  
     public static Uuid classId = Uuid.fromString("2f10da29-5d5f-4ff4-b9ab-7f1267924caf");
 
